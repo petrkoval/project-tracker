@@ -13,7 +13,8 @@ export function Providers({children}: { children: ReactNode }) {
 			<Provider store={store}>
 				<ConfigProvider theme={{
 					algorithm: theme.darkAlgorithm,
-					token: themeToken
+					token: themeToken,
+					cssVar: true
 				}}>
 					<BrowserRouter>
 						{children}
