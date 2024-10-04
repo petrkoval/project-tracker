@@ -1,7 +1,10 @@
 import {configureStore} from "@reduxjs/toolkit";
+import {themeTokenReducer, themeTokenSlice} from "@features/switch-theme";
 
 export const store = configureStore({
-	reducer: {},
+	reducer: {
+		[themeTokenSlice.reducerPath]: themeTokenReducer
+	},
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 	devTools: process.env.NODE_ENV === 'development',
 });

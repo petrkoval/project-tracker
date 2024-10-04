@@ -1,17 +1,19 @@
 import {ReactNode, StrictMode} from "react";
 import {BrowserRouter} from "react-router-dom";
 import {ConfigProvider, theme} from "antd";
-import {Provider} from "react-redux";
+import {Provider, useSelector} from "react-redux";
 import {store} from "@app/store";
-import {darkThemeToken} from "@features/switch-theme";
+import {selectThemeToken} from "@features/switch-theme";
 
 export function Providers({children}: { children: ReactNode }) {
+	const themeToken = useSelector(selectThemeToken);
+
 	return (
 		<StrictMode>
 			<Provider store={store}>
 				<ConfigProvider theme={{
 					algorithm: theme.darkAlgorithm,
-					token: darkThemeToken
+					token: themeToken
 				}}>
 					<BrowserRouter>
 						{children}
