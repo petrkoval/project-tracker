@@ -48,7 +48,6 @@ const items: MenuProps['items'] = [
 
 export function Sider() {
 	const [siderCollapsed, setSiderCollapsed] = useState(false);
-	const [buttonActive, setButtonActive] = useState(true);
 
 	return (
 		<AntSider collapsible
@@ -57,7 +56,7 @@ export function Sider() {
 				  style={{paddingTop: '1rem', position: 'relative'}}>
 			<Menu items={items} mode="vertical" theme="dark" style={{marginTop: '1rem'}}/>
 
-			<SwitchThemeButton active={buttonActive} onClick={prev => setButtonActive(!prev)}/>
+			<SwitchThemeButton/>
 		</AntSider>
 	)
 }
