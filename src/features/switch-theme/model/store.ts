@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {darkThemeToken, lightThemeToken, Themes} from "@features/switch-theme";
 import {RootState} from "@app/store";
+import {darkThemeToken, lightThemeToken, Themes} from "@features/switch-theme";
 
 export const themeTokenSlice = createSlice({
 	name: "themeToken",
@@ -14,6 +14,8 @@ export const themeTokenSlice = createSlice({
 				case Themes.light:
 					state = lightThemeToken;
 					break;
+				default:
+					return state;
 			}
 		}
 	}

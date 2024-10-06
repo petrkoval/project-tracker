@@ -1,25 +1,19 @@
 import {ReactNode, StrictMode} from "react";
 import {BrowserRouter} from "react-router-dom";
-import {ConfigProvider, theme} from "antd";
-import {Provider, useSelector} from "react-redux";
+import {Provider} from "react-redux";
 import {store} from "@app/store";
-import {selectThemeToken} from "@features/switch-theme";
+import {UiLibProvider} from "@app/providers/ui-lib-provider.tsx";
 
 export function Providers({children}: { children: ReactNode }) {
-	const themeToken = useSelector(selectThemeToken);
 
 	return (
 		<StrictMode>
 			<Provider store={store}>
-				<ConfigProvider theme={{
-					algorithm: theme.darkAlgorithm,
-					token: themeToken,
-					cssVar: true
-				}}>
+				<UiLibProvider>
 					<BrowserRouter>
 						{children}
 					</BrowserRouter>
-				</ConfigProvider>
+				</UiLibProvider>
 			</Provider>
 		</StrictMode>
 	)

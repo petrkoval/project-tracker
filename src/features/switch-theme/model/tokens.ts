@@ -1,4 +1,5 @@
-import {Themes, themeState} from "@features/switch-theme";
+import {Themes, themeState} from "./types.ts";
+
 
 export const darkThemeToken: themeState = {
 	theme: Themes.dark,
