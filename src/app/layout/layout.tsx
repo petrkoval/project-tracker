@@ -1,22 +1,22 @@
 import {Layout as AntLayout} from 'antd';
-import {useState} from "react";
 import {Outlet} from "react-router-dom";
+import {Sider} from "@widgets/sider";
+import {Header} from "@widgets/header";
 
-const {Sider, Header, Content, Footer} = AntLayout;
+const {Content, Footer} = AntLayout;
 
 export function Layout() {
-	const [siderCollapsed, setSiderCollapsed] = useState(false);
 
 	return (
 		<AntLayout style={{minHeight: '100dvh'}}>
-			<Sider collapsible collapsed={siderCollapsed} onCollapse={() => setSiderCollapsed(prev => !prev)}>
-
-			</Sider>
+			<Header/>
 			<AntLayout>
-				<Header></Header>
-				<Content>
-					<Outlet/>
-				</Content>
+				<AntLayout>
+					<Sider/>
+					<Content>
+						<Outlet/>
+					</Content>
+				</AntLayout>
 				<Footer></Footer>
 			</AntLayout>
 		</AntLayout>

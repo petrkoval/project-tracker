@@ -10,7 +10,18 @@ export function UiLibProvider({children}: { children: ReactNode }) {
 		<ConfigProvider theme={{
 			algorithm: theme.darkAlgorithm,
 			token: themeToken,
-			cssVar: true
+			cssVar: true,
+			components: {
+				Layout: {
+					siderBg: '#1f1f1f',
+					triggerBg: '#1f1f1f',
+					headerBg: '#1f1f1f',
+					footerBg: '#1f1f1f',
+				},
+				Menu: {
+					darkItemBg: '#1f1f1f',
+				}
+			}
 		}}>
 			{children}
 		</ConfigProvider>
