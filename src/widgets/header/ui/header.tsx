@@ -12,7 +12,7 @@ export function Header() {
 
 	return (
 		<AntHeader
-			style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingInline: "1.5rem"}}>
+			style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingInline: "1.5rem", borderBottom: `1px solid ${colorBorder}`}}>
 			<Link to="/" style={{color: colorText, display: 'inline'}}>
 				<Logo/>
 			</Link>

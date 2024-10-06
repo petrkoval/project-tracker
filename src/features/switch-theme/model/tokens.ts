@@ -37,13 +37,13 @@ export const lightTheme: themeState = {
 	},
 	components: {
 		Layout: {
-			siderBg: '#F8F9FA',
-			triggerBg: '#F8F9FA',
+			lightSiderBg: '#F8F9FA',
+			lightTriggerBg: '#F8F9FA',
 			headerBg: '#F8F9FA',
 			footerBg: '#F8F9FA',
 		},
 		Menu: {
-			darkItemBg: '#F8F9FA',
+			itemBg: '#F8F9FA',
 		}
 	}
 };

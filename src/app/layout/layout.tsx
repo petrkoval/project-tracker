@@ -2,8 +2,9 @@ import {Layout as AntLayout} from 'antd';
 import {Outlet} from "react-router-dom";
 import {Sider} from "@widgets/sider";
 import {Header} from "@widgets/header";
+import {Footer} from "@widgets/footer";
 
-const {Content, Footer} = AntLayout;
+const {Content} = AntLayout;
 
 export function Layout() {
 
@@ -16,7 +17,7 @@ export function Layout() {
 					<Outlet/>
 				</Content>
 			</AntLayout>
-			<Footer></Footer>
+			<Footer/>
 		</AntLayout>
 	)
 }

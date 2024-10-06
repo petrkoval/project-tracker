@@ -55,9 +55,9 @@ export function Sider() {
 		<AntSider collapsible
 				  collapsed={siderCollapsed}
 				  onCollapse={() => setSiderCollapsed(prev => !prev)}
-				  style={{paddingTop: '1rem', position: 'relative'}}
+				  style={{position: 'relative'}}
 				  theme={currentTheme}>
-			<Menu items={items} mode="vertical" theme={currentTheme} style={{marginTop: '1rem'}}/>
+			<Menu items={items} mode="vertical" theme={currentTheme}/>
 
 			<SwitchThemeButton/>
 		</AntSider>
