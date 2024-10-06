@@ -9,7 +9,7 @@ import "../style/switch-theme-button.scss";
 export function SwitchThemeButton() {
 	const dispatch = useDispatch();
 	const {token: {colorPrimary, borderRadius}} = theme.useToken();
-	const currentTheme = useSelector(selectThemeName);
+	const themeName = useSelector(selectThemeName);
 
 	const onClick = () => {
 		dispatch(toggleTheme());
@@ -17,11 +17,11 @@ export function SwitchThemeButton() {
 
 	return (
 		<>
-			<button className="switch-theme-btn" onClick={onClick} style={{borderRadius}}>
+			<button className="switch-theme-btn" onClick={onClick} style={{borderRadius}} aria-label="toggle theme">
 				{
-					currentTheme === ThemeNames.dark
-						? <FaMoon size={16} color={colorPrimary}/>
-						: <LuSun size={16} color={colorPrimary}/>
+					themeName === ThemeNames.dark
+						? <FaMoon size={16} color={colorPrimary} aria-label="dark theme icon"/>
+						: <LuSun size={16} color={colorPrimary} aria-label="light theme icon"/>
 				}
 			</button>
 		</>
