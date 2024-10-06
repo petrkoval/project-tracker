@@ -11,14 +11,12 @@ export function Layout() {
 		<AntLayout style={{minHeight: '100dvh'}}>
 			<Header/>
 			<AntLayout>
-				<AntLayout>
-					<Sider/>
-					<Content>
-						<Outlet/>
-					</Content>
-				</AntLayout>
-				<Footer></Footer>
+				<Sider/>
+				<Content>
+					<Outlet/>
+				</Content>
 			</AntLayout>
+			<Footer></Footer>
 		</AntLayout>
 	)
 }

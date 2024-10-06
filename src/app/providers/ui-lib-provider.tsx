@@ -1,27 +1,17 @@
 import {useSelector} from "react-redux";
-import {selectThemeToken} from "@features/switch-theme";
+import {selectTheme, ThemeNames} from "@features/switch-theme";
 import {ConfigProvider, theme} from "antd";
 import {ReactNode} from "react";
 
 export function UiLibProvider({children}: { children: ReactNode }) {
-	const themeToken = useSelector(selectThemeToken);
+	const currentTheme = useSelector(selectTheme);
 
 	return (
 		<ConfigProvider theme={{
-			algorithm: theme.darkAlgorithm,
-			token: themeToken,
-			cssVar: true,
-			components: {
-				Layout: {
-					siderBg: '#1f1f1f',
-					triggerBg: '#1f1f1f',
-					headerBg: '#1f1f1f',
-					footerBg: '#1f1f1f',
-				},
-				Menu: {
-					darkItemBg: '#1f1f1f',
-				}
-			}
+			...currentTheme,
+			algorithm: currentTheme.themeName === ThemeNames.dark
+				? theme.darkAlgorithm
+				: theme.defaultAlgorithm
 		}}>
 			{children}
 		</ConfigProvider>

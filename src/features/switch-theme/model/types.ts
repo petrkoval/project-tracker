@@ -1,10 +1,10 @@
-import {AliasToken} from "antd/es/theme/interface";
+import {ThemeConfig} from "antd";
 
-export interface themeState extends Partial<AliasToken> {
-	theme: Themes;
+export interface themeState extends ThemeConfig {
+	themeName: ThemeNames;
 }
 
-export enum Themes {
+export enum ThemeNames {
 	dark = "dark",
 	light = "light",
 }

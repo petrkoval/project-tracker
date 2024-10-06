@@ -1,34 +1,28 @@
 import {FaMoon} from "react-icons/fa";
+import {LuSun} from "react-icons/lu";
 import {theme} from "antd";
 import {useDispatch, useSelector} from "react-redux";
-import {selectCurrentTheme, Themes, toggleThemeToken} from "@features/switch-theme";
+import {selectThemeName, ThemeNames, toggleTheme} from "@features/switch-theme";
 
 import "../style/switch-theme-button.scss";
 
 export function SwitchThemeButton() {
 	const dispatch = useDispatch();
 	const {token: {colorPrimary, borderRadius}} = theme.useToken();
-	const currentTheme = useSelector(selectCurrentTheme);
+	const currentTheme = useSelector(selectThemeName);
 
 	const onClick = () => {
-		dispatch(toggleThemeToken());
-	}
-
-	const setColor = () => {
-		switch (currentTheme) {
-			case Themes.dark:
-				return colorPrimary;
-			case Themes.light:
-				return undefined;
-			default:
-				return undefined;
-		}
+		dispatch(toggleTheme());
 	}
 
 	return (
 		<>
 			<button className="switch-theme-btn" onClick={onClick} style={{borderRadius}}>
-				<FaMoon size={16} color={setColor()}/>
+				{
+					currentTheme === ThemeNames.dark
+						? <FaMoon size={16} color={colorPrimary}/>
+						: <LuSun size={16} color={colorPrimary}/>
+				}
 			</button>
 		</>
 	)
