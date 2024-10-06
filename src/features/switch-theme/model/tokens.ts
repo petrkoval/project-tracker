@@ -8,6 +8,7 @@ export const darkThemeToken: themeState = {
 	colorLinkHover: '#f66eab',
 	colorBgBase: '#242424',
 	colorBgLayout: '#242424',
+	colorBorder: "#424242",
 };
 
 export const lightThemeToken: themeState = {
