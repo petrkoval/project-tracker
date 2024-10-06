@@ -7,6 +7,7 @@ import {PiFoldersDuotone} from "react-icons/pi";
 import {FaHome, FaTasks} from "react-icons/fa";
 import {IoStatsChart} from "react-icons/io5";
 import {LuMessagesSquare} from "react-icons/lu";
+import {SwitchThemeButton} from "@features/switch-theme";
 
 
 const items: MenuProps['items'] = [
@@ -47,13 +48,16 @@ const items: MenuProps['items'] = [
 
 export function Sider() {
 	const [siderCollapsed, setSiderCollapsed] = useState(false);
+	const [buttonActive, setButtonActive] = useState(true);
 
 	return (
 		<AntSider collapsible
 				  collapsed={siderCollapsed}
 				  onCollapse={() => setSiderCollapsed(prev => !prev)}
-				  style={{paddingTop: '1rem'}}>
+				  style={{paddingTop: '1rem', position: 'relative'}}>
 			<Menu items={items} mode="vertical" theme="dark" style={{marginTop: '1rem'}}/>
+
+			<SwitchThemeButton active={buttonActive} onClick={prev => setButtonActive(!prev)}/>
 		</AntSider>
 	)
 }
