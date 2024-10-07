@@ -12,8 +12,14 @@ export function Header() {
 
 	return (
 		<AntHeader
-			style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingInline: "1.5rem", borderBottom: `1px solid ${colorBorder}`}}>
-			<Link to="/" style={{color: colorText, display: 'inline'}}>
+			style={{
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'space-between',
+				paddingInline: "1.5rem",
+				borderBottom: `1px solid ${colorBorder}`
+			}}>
+			<Link to="/" style={{color: colorText, display: 'inline'}} aria-label="home">
 				<Logo/>
 			</Link>
 
@@ -25,15 +31,15 @@ export function Header() {
 				paddingInline: ".5rem"
 			}}>
 				<Tooltip title="Уведомления">
-					<Button shape="circle" type="default" icon={<IoNotifications/>}></Button>
+					<Button shape="circle" type="default" icon={<IoNotifications/>} aria-label="notifications"/>
 				</Tooltip>
 
 				<Tooltip title="Настройки">
-					<Button shape="circle" type="default" icon={<IoIosSettings/>}></Button>
+					<Button shape="circle" type="default" icon={<IoIosSettings/>} aria-label="settings"/>
 				</Tooltip>
 
 				<Tooltip title="Учетная запись">
-					<Button shape="circle" type="default" icon={<FaUser/>}></Button>
+					<Button shape="circle" type="default" icon={<FaUser/>} aria-label="account"/>
 				</Tooltip>
 			</Space>
 		</AntHeader>
