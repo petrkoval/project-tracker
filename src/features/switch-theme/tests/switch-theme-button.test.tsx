@@ -1,12 +1,23 @@
-import {SwitchThemeButton} from "@features/switch-theme";
-import {render} from "@testing-library/react";
+import {SwitchThemeButton, toggleTheme} from "@features/switch-theme";
 import {expect} from "vitest";
 import {renderWithProvider} from "@shared/tests";
+import {setupStore} from "@app/store";
 
 describe("SwitchThemeButton", () => {
 	test('renders dark mode icon in dark mode', () => {
-		const btn = render(renderWithProvider(<SwitchThemeButton />));
+		const {getByLabelText} = renderWithProvider(<SwitchThemeButton/>);
 
-		expect(btn.getByLabelText('dark theme icon')).toBeInTheDocument();
+		expect(getByLabelText('dark theme icon')).toBeInTheDocument();
+	});
+
+	test('renders light mode icon in light mode', () => {
+		const store = setupStore();
+		store.dispatch(toggleTheme());
+
+		const {getByLabelText} = renderWithProvider(<SwitchThemeButton/>, {
+			store
+		});
+
+		expect(getByLabelText('light theme icon')).toBeInTheDocument();
 	});
 });

@@ -1,13 +1,19 @@
-import {configureStore} from "@reduxjs/toolkit";
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {themeTokenReducer, themeTokenSlice} from "@features/switch-theme";
 
-export const store = configureStore({
-	reducer: {
-		[themeTokenSlice.reducerPath]: themeTokenReducer
-	},
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-	devTools: process.env.NODE_ENV === 'development',
+const rootReducer = combineReducers({
+	[themeTokenSlice.reducerPath]: themeTokenReducer
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export function setupStore(preloadedState?: Partial<RootState>) {
+	return configureStore({
+		reducer: rootReducer,
+		preloadedState,
+		middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+		devTools: process.env.NODE_ENV === 'development',
+	});
+}
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore['dispatch'];
