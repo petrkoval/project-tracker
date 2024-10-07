@@ -57,7 +57,7 @@ export function Sider() {
 				  onCollapse={() => setSiderCollapsed(prev => !prev)}
 				  style={{position: 'relative'}}
 				  theme={currentTheme}>
-			<Menu items={items} mode="vertical" theme={currentTheme}/>
+			<Menu items={items} mode="vertical" theme={currentTheme} style={{borderRight: 'none'}}/>
 
 			<SwitchThemeButton/>
 		</AntSider>
