@@ -19,7 +19,7 @@
 - Vite + React
 - RTK
 - Ant Design
-- ~~Jest, React Testing Library~~ Vitest
+- Vitest + Testing Library
 - Feature Sliced Design
 
 ### Backend:

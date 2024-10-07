@@ -1,5 +1,11 @@
+import {PageWrapper} from "@shared/ui/page-wrapper";
+
 export function Projects() {
 	return (
-		<div style={{height: "100%"}}>projects</div>
+		<PageWrapper crumbs={[
+			{title: 'Проекты'}
+		]}>
+
+		</PageWrapper>
 	)
 }
