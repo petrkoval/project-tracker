@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {default as AntSider} from "antd/es/layout/Sider";
 import {Link} from "react-router-dom";
-import {Menu, MenuProps} from "antd";
+import {Menu, MenuProps, theme} from "antd";
 import {MdDashboard} from "react-icons/md";
 import {PiFoldersDuotone} from "react-icons/pi";
 import {FaHome, FaTasks} from "react-icons/fa";
@@ -51,11 +51,13 @@ export function Sider() {
 	const [siderCollapsed, setSiderCollapsed] = useState(false);
 	const currentTheme = useSelector(selectThemeName);
 
+	const {token: {colorBorder}} = theme.useToken();
+
 	return (
 		<AntSider collapsible
 				  collapsed={siderCollapsed}
 				  onCollapse={() => setSiderCollapsed(prev => !prev)}
-				  style={{position: 'relative'}}
+				  style={{position: 'relative', borderRight: `1px solid ${colorBorder}`}}
 				  theme={currentTheme}>
 			<Menu items={items} mode="vertical" theme={currentTheme} style={{borderRight: 'none'}}/>
 
