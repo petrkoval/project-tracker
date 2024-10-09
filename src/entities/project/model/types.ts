@@ -5,11 +5,13 @@ export interface Project {
 	id: string;
 	title: string;
 	description: string;
-	period: {
-		start: DateTime;
-		end: DateTime;
-	};
+	period: ProjectPeriod;
 	status: ProjectStatuses;
 	authorId: string;
 	teamId: string;
+}
+
+export interface ProjectPeriod {
+	start: DateTime;
+	end: DateTime;
 }

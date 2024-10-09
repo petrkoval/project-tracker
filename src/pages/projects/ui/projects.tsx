@@ -2,10 +2,11 @@ import {Table, TableProps} from "antd";
 import {PageWrapper} from "@shared/ui/page-wrapper";
 import {Project} from "@entities/project";
 import {ProjectStatuses} from "@shared/enums";
+import {createTableFiltersFromObject} from "@pages/projects";
 import {DateTime} from "luxon";
+import {useDateFilter} from "@pages/projects/hooks/use-date-filter.tsx";
 
 import "../style/projects.scss";
-import {createTableFiltersFromObject} from "@pages/projects";
 
 const dataSource: Project[] = [
 	{
@@ -46,66 +47,70 @@ const dataSource: Project[] = [
 	},
 ];
 
-const columns: TableProps<Project>['columns'] = [
-	{
-		title: 'Название',
-		dataIndex: 'title',
-		key: 'title',
-		sorter: (first, second) => first.title.localeCompare(second.title)
-	},
-	{
-		title: 'Статус',
-		dataIndex: 'status',
-		key: 'status',
-		filters: createTableFiltersFromObject(ProjectStatuses),
-		onFilter: (value, record) => record.status === value
-	},
-	{
-		title: 'Автор',
-		dataIndex: 'authorId',
-		key: 'authorId',
-		sorter: (first, second) => first.authorId.localeCompare(second.authorId)
-	},
-	{
-		title: 'Команда',
-		dataIndex: 'teamId',
-		key: 'teamId',
-	},
-	{
-		title: 'Период',
-		dataIndex: 'period',
-		key: 'period',
-		render: (_, {period}) => (
-			<time>
-				{period.start.toLocaleString(DateTime.DATE_SHORT)} - {period.end.toLocaleString(DateTime.DATE_SHORT)}
-			</time>
-		),
-	},
-	{
-		title: 'Начало',
-		dataIndex: 'period',
-		key: 'period.start',
-		sorter: (first, second) => +first.period.start - +second.period.start,
-		render: (_, {period}) => (
-			<time>
-				{period.start.toLocaleString(DateTime.DATE_SHORT)}
-			</time>
-		),
-	},
-	{
-		title: 'Дедлайн',
-		dataIndex: 'period',
-		key: 'period.end',
-		sorter: (first, second) => +first.period.end - +second.period.end,
-		render: (_, {period}) => (
-			<time>
-				{period.end.toLocaleString(DateTime.DATE_SHORT)}
-			</time>
-		),
-	}
-];
-
 export function Projects() {
+	const dateFilter = useDateFilter();
+
+	const columns: TableProps<Project>['columns'] = [
+		{
+			title: 'Название',
+			dataIndex: 'title',
+			key: 'title',
+			sorter: (first, second) => first.title.localeCompare(second.title)
+		},
+		{
+			title: 'Статус',
+			dataIndex: 'status',
+			key: 'status',
+			filters: createTableFiltersFromObject(ProjectStatuses),
+			onFilter: (value, record) => record.status === value
+		},
+		{
+			title: 'Автор',
+			dataIndex: 'authorId',
+			key: 'authorId',
+			sorter: (first, second) => first.authorId.localeCompare(second.authorId)
+		},
+		{
+			title: 'Команда',
+			dataIndex: 'teamId',
+			key: 'teamId',
+		},
+		{
+			title: 'Период',
+			dataIndex: 'period',
+			key: 'period',
+			render: (_, {period}) => (
+				<time>
+					{period.start.toLocaleString(DateTime.DATE_SHORT)} - {period.end.toLocaleString(DateTime.DATE_SHORT)}
+				</time>
+			),
+		},
+		{
+			title: 'Начало',
+			dataIndex: 'period',
+			key: 'period.start',
+			sorter: (first, second) => +first.period.start - +second.period.start,
+			render: (_, {period}) => (
+				<time>
+					{period.start.toLocaleString(DateTime.DATE_SHORT)}
+				</time>
+			),
+			...dateFilter('start')
+		},
+		{
+			title: 'Дедлайн',
+			dataIndex: 'period',
+			key: 'period.end',
+			sorter: (first, second) => +first.period.end - +second.period.end,
+			render: (_, {period}) => (
+				<time>
+					{period.end.toLocaleString(DateTime.DATE_SHORT)}
+				</time>
+			),
+			...dateFilter('end')
+		}
+	];
+
 	return (
 		<PageWrapper crumbs={[
 			{title: 'Проекты'}
