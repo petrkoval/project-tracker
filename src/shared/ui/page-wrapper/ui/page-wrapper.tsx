@@ -1,10 +1,11 @@
 import {ReactNode} from "react";
 import {Breadcrumb} from "antd";
 import {BreadcrumbItemType, BreadcrumbSeparatorType} from "antd/es/breadcrumb/Breadcrumb";
-
-import "../style/page-wrapper.scss";
 import {FaHome} from "react-icons/fa";
 import {Link} from "react-router-dom";
+import {Links} from "@shared/enums";
+
+import "../style/page-wrapper.scss";
 
 interface Props {
 	children?: ReactNode;
@@ -14,7 +15,7 @@ interface Props {
 export function PageWrapper({children, crumbs}: Props) {
 	const items = [
 		{
-			title: <Link to="/"><FaHome/></Link>
+			title: <Link to={Links.HOME}><FaHome/></Link>
 		},
 		...crumbs
 	];

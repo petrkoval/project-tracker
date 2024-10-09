@@ -14,7 +14,7 @@ describe('menu items has proper names and links', () => {
 		const {getByText} = renderWithStoreRouter(<Sider/>)
 
 		expect(getByText('Проекты')).toBeInTheDocument();
-		expect(getByText('Проекты')).toHaveAttribute('href', '/');
+		expect(getByText('Проекты')).toHaveAttribute('href', '/projects');
 	});
 
 	test('Дашборды', () => {

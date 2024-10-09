@@ -5,6 +5,7 @@ import {Header as AntHeader} from "antd/es/layout/layout";
 import {IoIosSettings} from "react-icons/io";
 import {FaUser} from "react-icons/fa";
 import {IoNotifications} from "react-icons/io5";
+import {Links} from "@shared/enums";
 
 
 export function Header() {
@@ -19,7 +20,7 @@ export function Header() {
 				paddingInline: "1.5rem",
 				borderBottom: `1px solid ${colorBorder}`
 			}}>
-			<Link to="/" style={{color: colorText, display: 'inline'}} aria-label="home">
+			<Link to={Links.HOME} style={{color: colorText, display: 'inline'}} aria-label="home">
 				<Logo/>
 			</Link>
 
