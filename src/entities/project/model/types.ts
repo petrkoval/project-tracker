@@ -1,12 +1,13 @@
 import {ProjectStatuses} from "@shared/enums";
+import {DateTime} from "luxon";
 
 export interface Project {
 	id: string;
 	title: string;
 	description: string;
 	period: {
-		start: Date;
-		end: Date;
+		start: DateTime;
+		end: DateTime;
 	};
 	status: ProjectStatuses;
 	authorId: string;
