@@ -1,8 +1,10 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import {themeTokenReducer, themeTokenSlice} from "@features/switch-theme";
+import {themeReducer, themeSlice} from "@features/switch-theme";
+import {apiReducer, apiSlice} from "@app/store/api.ts";
 
 const rootReducer = combineReducers({
-	[themeTokenSlice.reducerPath]: themeTokenReducer
+	[themeSlice.reducerPath]: themeReducer,
+	[apiSlice.reducerPath]: apiReducer
 });
 
 export function setupStore(preloadedState?: Partial<RootState>) {

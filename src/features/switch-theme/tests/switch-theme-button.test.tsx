@@ -1,4 +1,4 @@
-import {SwitchThemeButton, ThemeNames, themeTokenReducer, toggleTheme} from "@features/switch-theme";
+import {SwitchThemeButton, ThemeNames, themeReducer, toggleTheme} from "@features/switch-theme";
 import {expect} from "vitest";
 import {renderWithStoreProvider} from "@shared/tests";
 import {setupStore} from "@app/store";
@@ -23,13 +23,13 @@ describe("SwitchThemeButton", () => {
 
 	test('switches theme in store', () => {
 		renderWithStoreProvider(<SwitchThemeButton/>);
-		const state = themeTokenReducer(undefined, {type: 'unknown'});
+		const state = themeReducer(undefined, {type: 'unknown'});
 
 		expect(state).toHaveProperty('themeName', ThemeNames.dark);
 		expect(state.token).toHaveProperty('colorPrimary', '#f01879');
 		expect(state.components?.Layout).toHaveProperty('siderBg', '#1f1f1f');
 
-		const newState = themeTokenReducer(state, toggleTheme());
+		const newState = themeReducer(state, toggleTheme());
 
 		expect(newState).toHaveProperty('themeName', ThemeNames.light);
 		expect(newState.token).toHaveProperty('colorPrimary', '#f01879');

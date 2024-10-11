@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {RootState} from "@app/store";
 import {darkTheme, lightTheme, ThemeNames} from "@features/switch-theme";
 
-export const themeTokenSlice = createSlice({
+export const themeSlice = createSlice({
 	name: "theme",
 	initialState: darkTheme,
 	reducers: {
@@ -19,6 +19,6 @@ export const themeTokenSlice = createSlice({
 export const selectTheme = (state: RootState) => state.theme;
 export const selectThemeName = (state: RootState) => state.theme.themeName;
 
-export const {toggleTheme} = themeTokenSlice.actions;
+export const {toggleTheme} = themeSlice.actions;
 
-export const themeTokenReducer = themeTokenSlice.reducer;
+export const themeReducer = themeSlice.reducer;
