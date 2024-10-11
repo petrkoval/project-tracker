@@ -1,6 +1,5 @@
 import {ThemeNames, themeState} from "./types.ts";
 
-
 export const darkTheme: themeState = {
 	themeName: ThemeNames.dark,
 	cssVar: true,
@@ -11,6 +10,7 @@ export const darkTheme: themeState = {
 		colorBgBase: '#242424',
 		colorBgLayout: '#242424',
 		colorBorder: "#424242",
+		colorBgContainer: '#242424'
 	},
 	components: {
 		Layout: {
@@ -21,7 +21,7 @@ export const darkTheme: themeState = {
 		},
 		Menu: {
 			darkItemBg: '#1f1f1f',
-		}
+		},
 	}
 };
 
@@ -34,6 +34,7 @@ export const lightTheme: themeState = {
 		colorLinkHover: '#f66eab',
 		colorBgBase: '#ffffff',
 		colorBgLayout: '#ffffff',
+		colorBgContainer: '#ffffff'
 	},
 	components: {
 		Layout: {

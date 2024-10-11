@@ -11,7 +11,9 @@ export function setupStore(preloadedState?: Partial<RootState>) {
 	return configureStore({
 		reducer: rootReducer,
 		preloadedState,
-		middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
+		middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+			serializableCheck: false,
+		}).concat(apiSlice.middleware),
 		devTools: process.env.NODE_ENV === 'development',
 	});
 }

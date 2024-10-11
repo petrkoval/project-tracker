@@ -1,63 +1,29 @@
 import {PageWrapper} from "@shared/ui/page-wrapper";
-import {Project} from "@entities/project";
-import {ProjectStatuses} from "@shared/enums";
+import {Project, useGetProjectsQuery} from "@entities/project";
 import {useCreateColumns} from "@pages/projects";
-import {AutoComplete, AutoCompleteProps, Button, Space, Table} from "antd";
-import React, {useCallback, useState} from "react";
-import {DateTime} from "luxon";
+import {AutoComplete, AutoCompleteProps, Button, Skeleton, Space, Spin, Table} from "antd";
+import React, {useCallback, useEffect, useState} from "react";
 
 import "../style/projects.scss";
 
-const dataSource: Project[] = [
-	{
-		id: '0',
-		title: 'Проект 1',
-		description: 'Новый проект тестовый',
-		period: {
-			start: DateTime.now(),
-			end: DateTime.now(),
-		},
-		status: ProjectStatuses.NEW,
-		authorId: '123',
-		teamId: '123',
-		tags: [{id: '0', value: 'новый', color: 'green'}]
-	},
-	{
-		id: '1',
-		title: 'Проект 2',
-		description: 'Новый проект тестовый',
-		period: {
-			start: DateTime.now().plus({day: 1}),
-			end: DateTime.now(),
-		},
-		status: ProjectStatuses.STOPPED,
-		authorId: '123',
-		teamId: '123',
-		tags: [{id: '1', value: 'остановлен', color: 'red'}]
-	},
-	{
-		id: '2',
-		title: 'Проект 3',
-		description: 'Новый проект тестовый',
-		period: {
-			start: DateTime.now().plus({day: 2}),
-			end: DateTime.now(),
-		},
-		status: ProjectStatuses.IN_PROGRESS,
-		authorId: '123',
-		teamId: '123',
-		tags: [{id: '2', value: 'в работе', color: 'cyan-inverse'}]
-	},
-];
-
 export function Projects() {
 	const createColumns = useCreateColumns();
+	const [dataSource, setDataSource] = useState<Project[]>([]);
 	const [titleInput, setTitleInput] = useState('');
 	const [titleInputOptions, setTitleInputOptions] = useState<AutoCompleteProps['options']>([]);
-	const [filteredDataSource, setFilteredDataSource] = useState(dataSource);
+	const [filteredDataSource, setFilteredDataSource] = useState<Project[]>([]);
 	const [tableKey, setTableKey] = useState(0);
 
+	const {data, isLoading} = useGetProjectsQuery();
+
 	const columns = createColumns();
+
+	useEffect(() => {
+		if (data) {
+			setDataSource(data);
+			setFilteredDataSource(data);
+		}
+	}, [data]);
 
 	const getTitlesFromData = useCallback((text: string) => {
 		if (text) {
@@ -109,14 +75,24 @@ export function Projects() {
 				<Button type="default" onClick={clearFilters}>Сбросить фильтры</Button>
 			</Space>
 
-			<Table<Project> dataSource={filteredDataSource}
-							columns={columns}
-							rowKey={record => record.id}
-							showSorterTooltip={false}
-							pagination={{position: ['bottomCenter']}}
-							style={{marginTop: "1rem"}}
-							key={tableKey}
-			/>
+			{
+				isLoading &&
+				<Spin percent="auto" size="large" style={{marginTop: "1rem", display: "block"}}>
+					<Skeleton style={{marginTop: "1rem"}}/>
+				</Spin>
+			}
+
+			{
+				data && !isLoading &&
+                <Table<Project> dataSource={filteredDataSource}
+                                columns={columns}
+                                rowKey={record => record.id}
+                                showSorterTooltip={false}
+                                pagination={{position: ['bottomCenter']}}
+                                style={{marginTop: "1rem"}}
+                                key={tableKey}
+                />
+			}
 		</PageWrapper>
 	)
 }
