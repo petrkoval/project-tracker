@@ -1,79 +1,65 @@
 import {Project, ProjectPeriod} from "@entities/project";
 import {LuxonDatePicker} from "@shared/ui/date-picker";
-import {Button, Flex, Select, Space, TableColumnType} from "antd";
-import {Key, useState} from "react";
+import {Button, Flex, Space, TableColumnType} from "antd";
+import {Key} from "react";
 import {DateTime} from "luxon";
 import {FilterConfirmProps} from "antd/es/table/interface";
 import {AiOutlineCalendar} from "react-icons/ai";
 
-enum SelectOptions {
-	before,
-	after,
-	equals
-}
+const {RangePicker} = LuxonDatePicker;
 
-const options = [
-	{
-		value: SelectOptions.before,
-		label: 'До'
-	},
-	{
-		value: SelectOptions.after,
-		label: 'После'
-	},
-	{
-		value: SelectOptions.equals,
-		label: 'Равно'
-	},
-];
+type RangePickerState = [DateTime | null, DateTime | null];
+
+const parseFilterKeyToDate = (key: Key): RangePickerState => {
+	const keys = JSON.parse(key as string) as [number, number];
+	return keys.map(d => DateTime.fromMillis(d)) as RangePickerState;
+};
 
 export function useDateFilter() {
 	return function (dataIndex: keyof ProjectPeriod): TableColumnType<Project> {
-		const [date, setDate] = useState<DateTime | null>(null);
-		const [selectOption, setSelectOption] = useState(SelectOptions.after);
 
 		const handleReset = (
+			setSelectedKeys: (selectedKeys: Key[]) => void,
 			confirm: (param?: FilterConfirmProps) => void,
 			clearFilters?: () => void
 		) => {
 			clearFilters && clearFilters();
-			setDate(null);
+			setSelectedKeys([]);
 			confirm({closeDropdown: true});
 		}
 
-		const handleSelectChange = (value: SelectOptions) => {
-			setSelectOption(value);
-		}
-
-		const handleDatePickerChange = (setSelectedKeys: (selectedKeys: Key[]) => void, date: DateTime) => {
-			if (date) setSelectedKeys([date.toMillis()]);
-			setDate(date);
+		const handleDatePickerChange = (setSelectedKeys: (selectedKeys: Key[]) => void, state: RangePickerState) => {
+			const range = state.map(d => d?.toMillis() ?? null);
+			const key = JSON.stringify(range);
+			setSelectedKeys([key]);
 		}
 
 		return {
-			filterDropdown: ({setSelectedKeys, confirm, clearFilters}) => (
+			filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
 				<div style={{padding: 8}} onKeyDown={e => e.stopPropagation()}>
 					<Space.Compact block>
-						<LuxonDatePicker onChange={date => handleDatePickerChange(setSelectedKeys, date)}
-										 value={date}
-										 placeholder="Введите дату"/>
-						<Select options={options} onChange={handleSelectChange} value={selectOption}/>
+						<RangePicker
+							onChange={state => handleDatePickerChange(setSelectedKeys, state as RangePickerState)}
+							allowEmpty={[true, true]}
+							value={selectedKeys[0] ? parseFilterKeyToDate(selectedKeys[0]) : [null, null]}/>
 					</Space.Compact>
 					<Flex justify="space-between">
 						<Button type="link" onClick={() => confirm()}>Применить</Button>
-						<Button type="link" onClick={() => handleReset(confirm, clearFilters)}>Сбросить</Button>
+						<Button type="link"
+								onClick={() => handleReset(setSelectedKeys, confirm, clearFilters)}>Сбросить</Button>
 					</Flex>
 				</div>
 			),
 			onFilter: (value, record) => {
-				switch (selectOption) {
-					case SelectOptions.after:
-						return record.period[dataIndex] > DateTime.fromMillis(value as number);
-					case SelectOptions.before:
-						return record.period[dataIndex] < DateTime.fromMillis(value as number);
-					case SelectOptions.equals:
-						return +record.period[dataIndex].startOf('day') === value;
-				}
+				const [start, end] = parseFilterKeyToDate(value as string);
+
+				if (start && end) {
+					return record.period[dataIndex] > start && record.period[dataIndex] < end;
+				} else if (start && !end) {
+					return record.period[dataIndex] > start;
+				} else if (!start && end) {
+					return record.period[dataIndex] < end;
+				} else return true;
 			},
 			filterIcon: <AiOutlineCalendar size="1rem"/>
 		}
