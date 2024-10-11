@@ -1,4 +1,5 @@
 import {ProjectStatuses} from "@shared/enums";
+import {Tag} from "@entities/tag";
 import {DateTime} from "luxon";
 
 export interface Project {
@@ -9,6 +10,7 @@ export interface Project {
 	status: ProjectStatuses;
 	authorId: string;
 	teamId: string;
+	tags: Tag[];
 }
 
 export interface ProjectPeriod {

@@ -1,8 +1,8 @@
-import {Table, TableProps} from "antd";
+import {Table, TableProps, Tag} from "antd";
 import {PageWrapper} from "@shared/ui/page-wrapper";
 import {Project} from "@entities/project";
 import {ProjectStatuses} from "@shared/enums";
-import {createTableFiltersFromObject} from "@pages/projects";
+import {createTableFiltersFromEnum} from "@pages/projects";
 import {DateTime} from "luxon";
 import {useDateFilter} from "@pages/projects/hooks/use-date-filter.tsx";
 
@@ -20,6 +20,7 @@ const dataSource: Project[] = [
 		status: ProjectStatuses.NEW,
 		authorId: '123',
 		teamId: '123',
+		tags: [{id: '0', value: 'новый', color: 'green'}]
 	},
 	{
 		id: '1',
@@ -32,6 +33,7 @@ const dataSource: Project[] = [
 		status: ProjectStatuses.STOPPED,
 		authorId: '123',
 		teamId: '123',
+		tags: [{id: '1', value: 'остановлен', color: 'red'}]
 	},
 	{
 		id: '2',
@@ -44,6 +46,7 @@ const dataSource: Project[] = [
 		status: ProjectStatuses.IN_PROGRESS,
 		authorId: '123',
 		teamId: '123',
+		tags: [{id: '2', value: 'в работе', color: 'cyan-inverse'}]
 	},
 ];
 
@@ -61,7 +64,7 @@ export function Projects() {
 			title: 'Статус',
 			dataIndex: 'status',
 			key: 'status',
-			filters: createTableFiltersFromObject(ProjectStatuses),
+			filters: createTableFiltersFromEnum(ProjectStatuses),
 			onFilter: (value, record) => record.status === value
 		},
 		{
@@ -108,13 +111,19 @@ export function Projects() {
 				</time>
 			),
 			...dateFilter('end')
-		}
+		},
+		{
+			title: 'Теги',
+			dataIndex: 'tags',
+			key: 'tags',
+			render: (_, {tags}) => tags.map(({id, value, color}) => (
+				<Tag color={color} key={id}>{value}</Tag>
+			)),
+		},
 	];
 
 	return (
-		<PageWrapper crumbs={[
-			{title: 'Проекты'}
-		]}>
+		<PageWrapper crumbs={[{title: 'Проекты'}]}>
 			<Table<Project> dataSource={dataSource}
 							columns={columns}
 							rowKey={record => record.id}
