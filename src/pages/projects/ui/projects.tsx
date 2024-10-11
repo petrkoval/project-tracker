@@ -55,6 +55,7 @@ export function Projects() {
 	const [titleInput, setTitleInput] = useState('');
 	const [titleInputOptions, setTitleInputOptions] = useState<AutoCompleteProps['options']>([]);
 	const [filteredDataSource, setFilteredDataSource] = useState(dataSource);
+	const [tableKey, setTableKey] = useState(0);
 
 	const columns = createColumns();
 
@@ -79,6 +80,18 @@ export function Projects() {
 		}
 	}
 
+	const clearFilters = () => {
+		setTitleInput('');
+		setTitleInputOptions([]);
+		setFilteredDataSource(dataSource);
+
+		rerenderTable();
+	}
+
+	const rerenderTable = () => {
+		setTableKey(prev => prev + 1);
+	}
+
 	return (
 		<PageWrapper crumbs={[{title: 'Проекты'}]}>
 			<Space size="small">
@@ -93,6 +106,7 @@ export function Projects() {
 				/>
 
 				<Button type="link" onClick={filterDataSource}>Поиск</Button>
+				<Button type="default" onClick={clearFilters}>Сбросить фильтры</Button>
 			</Space>
 
 			<Table<Project> dataSource={filteredDataSource}
@@ -101,6 +115,7 @@ export function Projects() {
 							showSorterTooltip={false}
 							pagination={{position: ['bottomCenter']}}
 							style={{marginTop: "1rem"}}
+							key={tableKey}
 			/>
 		</PageWrapper>
 	)
