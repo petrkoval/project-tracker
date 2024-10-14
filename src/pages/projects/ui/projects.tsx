@@ -1,7 +1,7 @@
 import {PageWrapper} from "@shared/ui/page-wrapper";
 import {Project, useGetProjectsQuery} from "@entities/project";
 import {useCreateColumns} from "@pages/projects";
-import {AutoComplete, AutoCompleteProps, Button, Space, Spin, Table} from "antd";
+import {AutoComplete, AutoCompleteProps, Button, Space, Spin, Table, TablePaginationConfig, TableProps} from "antd";
 import React, {useCallback, useEffect, useState} from "react";
 
 import "../style/projects.scss";
@@ -14,6 +14,11 @@ export function Projects() {
 	const [titleInputOptions, setTitleInputOptions] = useState<AutoCompleteProps['options']>([]);
 	const [filteredDataSource, setFilteredDataSource] = useState<Project[]>([]);
 	const [tableKey, setTableKey] = useState(0);
+	const [pagination, setPagination] = useState<TablePaginationConfig>({
+		current: 1,
+		pageSize: 10,
+		position: ['bottomCenter']
+	});
 
 	const {data, isLoading} = useGetProjectsQuery();
 
@@ -24,6 +29,10 @@ export function Projects() {
 		if (data) {
 			setDataSource(data);
 			setFilteredDataSource(data);
+			setPagination(prev => ({
+				...prev,
+				total: data.length
+			}));
 		}
 	}, [data]);
 
@@ -46,6 +55,10 @@ export function Projects() {
 		if (e.key === 'Enter') {
 			filterDataSource();
 		}
+	}
+
+	const handleTableChange: TableProps<Project>['onChange'] = (pagination) => {
+		setPagination(pagination);
 	}
 
 	const clearFilters = () => {
@@ -83,8 +96,9 @@ export function Projects() {
 									columns={columns}
 									rowKey={record => record.id}
 									showSorterTooltip={false}
-									pagination={{position: ['bottomCenter']}}
+									pagination={pagination}
 									key={tableKey}
+									onChange={handleTableChange}
 					/>
 				</SkeletonTable>
 			</Spin>

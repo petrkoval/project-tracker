@@ -3,6 +3,7 @@ import {projectsUrl} from "@entities/project";
 import {ProjectStatuses} from "@shared/enums";
 import {worker} from "@app/mocks";
 import {ProjectDTO} from "@entities/project/model/dto.ts";
+import { v4 as uuidv4 } from 'uuid';
 
 export const handlers = [
 	http.get<never, never, ProjectDTO[], '/projects'>(`/${projectsUrl}`, async () => {
@@ -10,7 +11,7 @@ export const handlers = [
 
 		return HttpResponse.json([
 			{
-				id: '0',
+				id: uuidv4(),
 				title: 'Проект 1',
 				description: 'Новый проект тестовый',
 				period: {
@@ -20,10 +21,10 @@ export const handlers = [
 				status: ProjectStatuses.new,
 				author_id: '123',
 				team_id: '123',
-				tags: [{id: '0', value: 'новый', color: 'green'}]
+				tags: [{id: uuidv4(), value: 'новый', color: 'green'}]
 			},
 			{
-				id: '1',
+				id: uuidv4(),
 				title: 'Проект 2',
 				description: 'Новый проект тестовый',
 				period: {
@@ -33,10 +34,10 @@ export const handlers = [
 				status: ProjectStatuses.stopped,
 				author_id: '123',
 				team_id: '123',
-				tags: [{id: '1', value: 'остановлен', color: 'red'}]
+				tags: [{id: uuidv4(), value: 'остановлен', color: 'red'}]
 			},
 			{
-				id: '2',
+				id: uuidv4(),
 				title: 'Проект 3',
 				description: 'Новый проект тестовый',
 				period: {
@@ -46,7 +47,280 @@ export const handlers = [
 				status: ProjectStatuses.in_progress,
 				author_id: '123',
 				team_id: '123',
-				tags: [{id: '2', value: 'в работе', color: 'cyan-inverse'}]
+				tags: [{id: uuidv4(), value: 'в работе', color: 'cyan-inverse'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 1',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.new,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'новый', color: 'green'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 2',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.stopped,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'остановлен', color: 'red'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 3',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.in_progress,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'в работе', color: 'cyan-inverse'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 1',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.new,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'новый', color: 'green'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 2',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.stopped,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'остановлен', color: 'red'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 3',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.in_progress,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'в работе', color: 'cyan-inverse'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 1',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.new,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'новый', color: 'green'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 2',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.stopped,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'остановлен', color: 'red'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 3',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.in_progress,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'в работе', color: 'cyan-inverse'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 1',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.new,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'новый', color: 'green'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 2',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.stopped,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'остановлен', color: 'red'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 3',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.in_progress,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'в работе', color: 'cyan-inverse'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 1',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.new,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'новый', color: 'green'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 2',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.stopped,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'остановлен', color: 'red'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 3',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.in_progress,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'в работе', color: 'cyan-inverse'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 1',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.new,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'новый', color: 'green'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 2',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.stopped,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'остановлен', color: 'red'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 3',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.in_progress,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'в работе', color: 'cyan-inverse'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 1',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.new,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'новый', color: 'green'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 2',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.stopped,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'остановлен', color: 'red'}]
+			},
+			{
+				id: uuidv4(),
+				title: 'Проект 3',
+				description: 'Новый проект тестовый',
+				period: {
+					start: Date.now(),
+					end: Date.now(),
+				},
+				status: ProjectStatuses.in_progress,
+				author_id: '123',
+				team_id: '123',
+				tags: [{id: uuidv4(), value: 'в работе', color: 'cyan-inverse'}]
 			},
 		]);
 	}),

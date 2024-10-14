@@ -10,6 +10,11 @@ export type SkeletonTableProps = SkeletonProps & {
 	rowCount: number;
 }
 
+const createEmptyDataSource = (rowCount: number) => {
+	const rows = [...Array(rowCount)];
+	return rows.map((_, i) => ({key: `${i}`}));
+}
+
 export function SkeletonTable({
   loading = false,
   active = false,
@@ -19,10 +24,10 @@ export function SkeletonTable({
   className
 }: SkeletonTableProps): JSX.Element {
 	return loading ? (
-		<Table rowKey="key"
+		<Table rowKey={col => col.key}
 			   pagination={false}
-			   dataSource={[...Array(rowCount)].map((_, i) => ({key: `${i}`}))}
-			   columns={(columns as { key: number }[]).map(col => ({
+			   dataSource={createEmptyDataSource(rowCount)}
+			   columns={columns.map(col => ({
 				   ...col,
 				   render: () => (
 					   <Skeleton key={col.key}
