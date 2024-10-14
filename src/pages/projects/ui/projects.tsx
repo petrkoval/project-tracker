@@ -1,10 +1,11 @@
 import {PageWrapper} from "@shared/ui/page-wrapper";
 import {Project, useGetProjectsQuery} from "@entities/project";
 import {useCreateColumns} from "@pages/projects";
-import {AutoComplete, AutoCompleteProps, Button, Skeleton, Space, Spin, Table} from "antd";
+import {AutoComplete, AutoCompleteProps, Button, Space, Spin, Table} from "antd";
 import React, {useCallback, useEffect, useState} from "react";
 
 import "../style/projects.scss";
+import {SkeletonTable, SkeletonTableColumns} from "@shared/ui/skeleton-table";
 
 export function Projects() {
 	const createColumns = useCreateColumns();
@@ -16,7 +17,8 @@ export function Projects() {
 
 	const {data, isLoading} = useGetProjectsQuery();
 
-	const columns = createColumns();
+	const columns = createColumns()!;
+	const rowCount = 3;
 
 	useEffect(() => {
 		if (data) {
@@ -60,7 +62,7 @@ export function Projects() {
 
 	return (
 		<PageWrapper crumbs={[{title: 'Проекты'}]}>
-			<Space size="small">
+			<Space size="small" style={{marginBottom: "1rem"}}>
 				<AutoComplete
 					style={{width: 200}}
 					value={titleInput}
@@ -75,24 +77,17 @@ export function Projects() {
 				<Button type="default" onClick={clearFilters}>Сбросить фильтры</Button>
 			</Space>
 
-			{
-				isLoading &&
-				<Spin percent="auto" size="large" style={{marginTop: "1rem", display: "block"}}>
-					<Skeleton style={{marginTop: "1rem"}}/>
-				</Spin>
-			}
-
-			{
-				data && !isLoading &&
-                <Table<Project> dataSource={filteredDataSource}
-                                columns={columns}
-                                rowKey={record => record.id}
-                                showSorterTooltip={false}
-                                pagination={{position: ['bottomCenter']}}
-                                style={{marginTop: "1rem"}}
-                                key={tableKey}
-                />
-			}
+			<Spin percent="auto" size="large" style={{display: "block"}} spinning={isLoading}>
+				<SkeletonTable columns={columns as SkeletonTableColumns[]} rowCount={rowCount} loading={isLoading} active={true}>
+					<Table<Project> dataSource={filteredDataSource}
+									columns={columns}
+									rowKey={record => record.id}
+									showSorterTooltip={false}
+									pagination={{position: ['bottomCenter']}}
+									key={tableKey}
+					/>
+				</SkeletonTable>
+			</Spin>
 		</PageWrapper>
 	)
 }
