@@ -3,9 +3,9 @@ import {Project, useGetProjectsQuery} from "@entities/project";
 import {useCreateColumns} from "@pages/projects";
 import {AutoComplete, AutoCompleteProps, Button, Space, Spin, Table, TablePaginationConfig, TableProps} from "antd";
 import React, {useCallback, useEffect, useState} from "react";
+import {SkeletonTable, SkeletonTableColumns} from "@shared/ui/skeleton-table";
 
 import "../style/projects.scss";
-import {SkeletonTable, SkeletonTableColumns} from "@shared/ui/skeleton-table";
 
 export function Projects() {
 	const createColumns = useCreateColumns();
@@ -87,7 +87,7 @@ export function Projects() {
 				/>
 
 				<Button type="link" onClick={filterDataSource}>Поиск</Button>
-				<Button type="default" onClick={clearFilters}>Сбросить фильтры</Button>
+				<Button type="default" onClick={clearFilters}>Сбросить фильтры</Button><div></div>
 			</Space>
 
 			<Spin percent="auto" size="large" style={{display: "block"}} spinning={isLoading}>

@@ -9,13 +9,13 @@ import "../style/page-wrapper.scss";
 
 interface Props {
 	children?: ReactNode;
-	crumbs: Partial<BreadcrumbItemType & BreadcrumbSeparatorType>[];
+	crumbs?: Partial<BreadcrumbItemType & BreadcrumbSeparatorType>[];
 }
 
-export function PageWrapper({children, crumbs}: Props) {
+export function PageWrapper({children, crumbs = []}: Props) {
 	const items = [
 		{
-			title: <Link to={Links.HOME}><FaHome/></Link>
+			title: <Link to={Links.HOME}><FaHome aria-label="home icon"/></Link>
 		},
 		...crumbs
 	];
