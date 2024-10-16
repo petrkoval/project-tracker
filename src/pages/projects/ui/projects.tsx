@@ -1,7 +1,7 @@
 import {PageWrapper} from "@shared/ui/page-wrapper";
 import {Project, useGetProjectsQuery} from "@entities/project";
 import {useCreateColumns} from "@pages/projects";
-import {AutoComplete, AutoCompleteProps, Button, Space, Spin, Table, TablePaginationConfig, TableProps} from "antd";
+import {AutoComplete, AutoCompleteProps, Button, Space, Spin, Table} from "antd";
 import React, {useCallback, useEffect, useState} from "react";
 import {SkeletonTable, SkeletonTableColumns} from "@shared/ui/skeleton-table";
 
@@ -9,16 +9,10 @@ import "../style/projects.scss";
 
 export function Projects() {
 	const createColumns = useCreateColumns();
-	const [dataSource, setDataSource] = useState<Project[]>([]);
+	const [filteredDataSource, setFilteredDataSource] = useState<Project[]>([]);
 	const [titleInput, setTitleInput] = useState('');
 	const [titleInputOptions, setTitleInputOptions] = useState<AutoCompleteProps['options']>([]);
-	const [filteredDataSource, setFilteredDataSource] = useState<Project[]>([]);
 	const [tableKey, setTableKey] = useState(0);
-	const [pagination, setPagination] = useState<TablePaginationConfig>({
-		current: 1,
-		pageSize: 10,
-		position: ['bottomCenter']
-	});
 
 	const {data, isLoading} = useGetProjectsQuery();
 
@@ -27,29 +21,26 @@ export function Projects() {
 
 	useEffect(() => {
 		if (data) {
-			setDataSource(data);
 			setFilteredDataSource(data);
-			setPagination(prev => ({
-				...prev,
-				total: data.length
-			}));
 		}
 	}, [data]);
 
-	const getTitlesFromData = useCallback((text: string) => {
+	const getTitlesFromDataSource = useCallback((text: string) => {
 		if (text) {
-			const titles = dataSource.map(record => record.title);
+			const titles = filteredDataSource.map(record => record.title);
 			const titlesIncludingText = titles.filter(title => title.toLowerCase().includes(text.toLowerCase()));
 
 			return titlesIncludingText.map(title => ({value: title}));
 		} else return [];
-	}, [dataSource]);
+	}, [filteredDataSource]);
 
 	const filterDataSource = useCallback(() => {
-		const filteredDataSource = dataSource.filter(data => data.title.toLowerCase().includes(titleInput.toLowerCase()));
+		if (data) {
+			const filteredDataSource = data.filter(record => record.title.toLowerCase().includes(titleInput.toLowerCase()));
 
-		setFilteredDataSource(filteredDataSource);
-	}, [dataSource, titleInput]);
+			setFilteredDataSource(filteredDataSource);
+		}
+	}, [data, titleInput]);
 
 	const handleInputEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
 		if (e.key === 'Enter') {
@@ -57,14 +48,10 @@ export function Projects() {
 		}
 	}
 
-	const handleTableChange: TableProps<Project>['onChange'] = (pagination) => {
-		setPagination(pagination);
-	}
-
 	const clearFilters = () => {
 		setTitleInput('');
 		setTitleInputOptions([]);
-		setFilteredDataSource(dataSource);
+		setFilteredDataSource(data!);
 
 		rerenderTable();
 	}
@@ -81,24 +68,25 @@ export function Projects() {
 					value={titleInput}
 					onChange={text => setTitleInput(text)}
 					options={titleInputOptions}
-					onSearch={text => setTitleInputOptions(getTitlesFromData(text))}
+					onSearch={text => setTitleInputOptions(getTitlesFromDataSource(text))}
 					placeholder="Поиск по названию"
 					onKeyDown={e => handleInputEnterPress(e)}
 				/>
 
 				<Button type="link" onClick={filterDataSource}>Поиск</Button>
-				<Button type="default" onClick={clearFilters}>Сбросить фильтры</Button><div></div>
+				<Button type="default" onClick={clearFilters}>Сбросить фильтры</Button>
+				<div></div>
 			</Space>
 
 			<Spin percent="auto" size="large" style={{display: "block"}} spinning={isLoading}>
-				<SkeletonTable columns={columns as SkeletonTableColumns[]} rowCount={rowCount} loading={isLoading} active={true}>
+				<SkeletonTable columns={columns as SkeletonTableColumns[]} rowCount={rowCount} loading={isLoading}
+							   active={true}>
 					<Table<Project> dataSource={filteredDataSource}
 									columns={columns}
 									rowKey={record => record.id}
 									showSorterTooltip={false}
-									pagination={pagination}
 									key={tableKey}
-									onChange={handleTableChange}
+									pagination={{position: ['bottomCenter']}}
 					/>
 				</SkeletonTable>
 			</Spin>
