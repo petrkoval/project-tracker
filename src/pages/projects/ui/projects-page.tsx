@@ -18,7 +18,7 @@ export function ProjectsPage() {
 
 	return (
 		<PageWrapper crumbs={[{title: 'Проекты'}]}>
-			<Actions state={state} dispatch={dispatch} unfilteredData={data}/>й
+			<Actions state={state} dispatch={dispatch} unfilteredData={data}/>
 
 			<Table state={state} isLoading={isLoading}/>
 		</PageWrapper>

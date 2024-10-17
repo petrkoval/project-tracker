@@ -7,7 +7,7 @@ export interface SkeletonTableColumns {
 
 export type SkeletonTableProps = SkeletonProps & {
 	columns: ColumnsType<SkeletonTableColumns>;
-	rowCount: number;
+	rowCount?: number;
 }
 
 const createEmptyDataSource = (rowCount: number) => {
@@ -30,11 +30,11 @@ export function SkeletonTable({
 			   columns={columns.map(col => ({
 				   ...col,
 				   render: () => (
-					   <Skeleton key={col.key}
-								 title
-								 paragraph={false}
-								 active={active}
-								 className={className}
+					   <Skeleton.Input key={col.key}
+									   active={active}
+									   className={className}
+									   size='small'
+									   block
 					   />
 				   )
 			   }))}

@@ -12,7 +12,7 @@ export function Table({state, isLoading}: Props) {
 	const createColumns = useCreateColumns();
 
 	const columns = createColumns()!;
-	const rowCount = 3;
+	const rowCount = 10;
 
 	return (
 		<Spin percent="auto" size="large" style={{display: "block"}} spinning={isLoading}>
