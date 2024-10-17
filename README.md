@@ -19,7 +19,7 @@
 - Vite + React
 - RTK
 - Ant Design
-- Vitest + Testing Library
+- Vitest + Testing Library + MSW
 - Feature Sliced Design
 
 ### Backend:

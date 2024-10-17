@@ -1,10 +1,7 @@
 import {useEffect, useReducer} from "react";
 import {PageWrapper} from "@shared/ui/page-wrapper";
 import {useGetProjectsQuery} from "@entities/project";
-import {Table} from "@pages/projects/ui/table.tsx";
-import {Actions, initialState, projectsPageReducer, setDataSource} from "@pages/projects";
-
-import "../style/projects.scss";
+import {Actions, initialState, projectsPageReducer, setDataSource, Table} from "@pages/projects";
 
 export function ProjectsPage() {
 	const {data, isLoading} = useGetProjectsQuery();

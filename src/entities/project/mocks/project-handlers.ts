@@ -1,10 +1,10 @@
 import {delay, http, HttpResponse} from "msw";
+import { v4 as uuidv4 } from 'uuid';
+import {PresetColorType} from "antd/es/_util/colors";
 import {projectsUrl} from "@entities/project";
 import {ProjectStatuses} from "@shared/enums";
 import {worker} from "@app/mocks";
 import {ProjectDTO} from "@entities/project/model/dto.ts";
-import { v4 as uuidv4 } from 'uuid';
-import {PresetColorType} from "antd/es/_util/colors";
 
 const getRandomValueFromObject = (obj: object) => {
 	const values = Object.values(obj);
@@ -12,7 +12,7 @@ const getRandomValueFromObject = (obj: object) => {
 	return values[Math.floor(Math.random() * values.length)];
 }
 
-export const handlers = [
+export const projectHandlers = [
 	http.get<never, never, ProjectDTO[], '/projects'>(`/${projectsUrl}`, async () => {
 		await delay(1000);
 
@@ -36,4 +36,4 @@ export const handlers = [
 	}),
 ];
 
-worker.use(...handlers);
+worker.use(...projectHandlers);

@@ -20,6 +20,12 @@ export default defineConfig({
 		globals: true,
 		environment: "jsdom",
 		setupFiles: "./setupTests.ts",
+		coverage: {
+			exclude: [
+				'**/browser.ts',
+				'**/handler.ts',
+			]
+		}
 	},
 	css: {
 		preprocessorOptions: {

@@ -2,7 +2,7 @@ import {renderWithStoreRouter} from "@shared/tests";
 import {Sider} from "@widgets/sider";
 
 
-describe('menu items has proper names and links', () => {
+describe('menu items', () => {
 	test('Моя страница', () => {
 		const {getByText} = renderWithStoreRouter(<Sider/>)
 
