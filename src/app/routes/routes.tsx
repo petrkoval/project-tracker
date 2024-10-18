@@ -2,6 +2,7 @@ import {Navigate, Route, Routes as BrowserRoutes, useLocation} from "react-route
 import {AnimatePresence} from "framer-motion";
 import {Layout} from "@app/layout";
 import {ProjectsPage} from "@pages/projects";
+import {NotFoundPage} from "@pages/not-found";
 
 export function Routes() {
 	const location = useLocation();
@@ -13,6 +14,7 @@ export function Routes() {
 					<Route index element={<Navigate to="/projects" replace/>}/>
 					<Route path="projects" element={<ProjectsPage/>}/>
 				</Route>
+				<Route path="*" element={<NotFoundPage/>}/>
 			</BrowserRoutes>
 		</AnimatePresence>
 	)

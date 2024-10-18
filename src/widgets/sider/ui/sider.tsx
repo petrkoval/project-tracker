@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {default as AntSider} from "antd/es/layout/Sider";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {Menu, MenuProps, theme} from "antd";
 import {MdDashboard} from "react-icons/md";
 import {PiFoldersDuotone} from "react-icons/pi";
@@ -14,7 +14,7 @@ import {Links} from "@shared/enums";
 
 const items: MenuProps['items'] = [
 	{
-		key: '0',
+		key: Links.HOME,
 		icon: <FaHome/>,
 		label: <Link to={Links.HOME}>Моя страница</Link>
 	},
@@ -22,35 +22,36 @@ const items: MenuProps['items'] = [
 		type: "divider"
 	},
 	{
-		key: '1',
+		key: Links.PROJECTS,
 		icon: <PiFoldersDuotone/>,
 		label: <Link to={Links.PROJECTS}>Проекты</Link>
 	},
 	{
-		key: '2',
+		key: Links.DASHBOARDS,
 		icon: <MdDashboard/>,
-		label: <Link to={Links.HOME}>Дашборды</Link>
+		label: <Link to={Links.DASHBOARDS}>Дашборды</Link>
 	},
 	{
-		key: '3',
+		key: Links.STATS,
 		icon: <IoStatsChart/>,
-		label: <Link to={Links.HOME}>Статистика</Link>
+		label: <Link to={Links.STATS}>Статистика</Link>
 	},
 	{
-		key: '4',
+		key: Links.TASKS,
 		icon: <FaTasks/>,
-		label: <Link to={Links.HOME}>Задачи</Link>
+		label: <Link to={Links.TASKS}>Задачи</Link>
 	},
 	{
-		key: '5',
+		key: Links.MESSAGES,
 		icon: <LuMessagesSquare/>,
-		label: <Link to={Links.HOME}>Сообщения</Link>
+		label: <Link to={Links.MESSAGES}>Сообщения</Link>
 	},
 ];
 
 export function Sider() {
 	const [siderCollapsed, setSiderCollapsed] = useState(false);
 	const currentTheme = useSelector(selectThemeName);
+	const location = useLocation();
 
 	const {token: {colorBorder}} = theme.useToken();
 
@@ -60,7 +61,12 @@ export function Sider() {
 				  onCollapse={() => setSiderCollapsed(prev => !prev)}
 				  style={{position: 'relative', borderRight: `1px solid ${colorBorder}`}}
 				  theme={currentTheme}>
-			<Menu items={items} mode="vertical" theme={currentTheme} style={{borderRight: 'none'}}/>
+			<Menu items={items}
+				  mode="vertical"
+				  theme={currentTheme}
+				  style={{borderRight: 'none'}}
+				  selectedKeys={[location.pathname]}
+			/>
 
 			<SwitchThemeButton/>
 		</AntSider>
