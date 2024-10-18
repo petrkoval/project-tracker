@@ -2,11 +2,6 @@ import {SkeletonTable} from "@shared/ui/skeleton-table";
 import {render} from "@testing-library/react";
 
 describe('SkeletonTable', () => {
-	beforeAll(() => {
-		const {getComputedStyle} = window;
-		window.getComputedStyle = (elt) => getComputedStyle(elt);
-	});
-
 	test('renders columns', () => {
 		const columnsCount = 5;
 		const columns = Array(columnsCount).fill(null).map((_, i) => ({key: `${i}`}));
