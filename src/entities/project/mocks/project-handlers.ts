@@ -1,9 +1,8 @@
 import {delay, http, HttpResponse} from "msw";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {PresetColorType} from "antd/es/_util/colors";
 import {projectsUrl} from "@entities/project";
 import {ProjectStatuses} from "@shared/enums";
-import {worker} from "@app/mocks";
 import {ProjectDTO} from "@entities/project/model/dto.ts";
 
 const getRandomValueFromObject = (obj: object) => {
@@ -35,5 +34,3 @@ export const projectHandlers = [
 		return HttpResponse.json(generateProjects(24));
 	}),
 ];
-
-worker.use(...projectHandlers);
