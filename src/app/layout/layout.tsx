@@ -9,11 +9,11 @@ const {Content} = AntLayout;
 export function Layout() {
 
 	return (
-		<AntLayout style={{minHeight: '100dvh'}}>
+		<AntLayout style={{height: '100dvh', overflow: 'hidden'}}>
 			<Header/>
 			<AntLayout>
 				<Sider/>
-				<Content>
+				<Content style={{overflow: 'auto'}}>
 					<Outlet/>
 				</Content>
 			</AntLayout>
