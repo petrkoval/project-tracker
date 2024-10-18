@@ -3,7 +3,7 @@ import {v4 as uuidv4} from 'uuid';
 import {PresetColorType} from "antd/es/_util/colors";
 import {projectsUrl} from "@entities/project";
 import {ProjectStatuses} from "@shared/enums";
-import {ProjectDTO} from "@entities/project/model/dto.ts";
+import {baseUrl} from "@app/store";
 
 const getRandomValueFromObject = (obj: object) => {
 	const values = Object.values(obj);
@@ -11,8 +11,8 @@ const getRandomValueFromObject = (obj: object) => {
 	return values[Math.floor(Math.random() * values.length)];
 }
 
-export const projectHandlers = [
-	http.get<never, never, ProjectDTO[], '/projects'>(`/${projectsUrl}`, async () => {
+export const handlers = [
+	http.get(`${baseUrl}${projectsUrl}`, async () => {
 		await delay(1000);
 
 		const generateProjects = (amount: number) => {

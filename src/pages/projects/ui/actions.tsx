@@ -53,8 +53,8 @@ export function Actions({state, dispatch, unfilteredData = []}: Props) {
 				onKeyDown={e => handleInputEnterPress(e)}
 			/>
 
-			<Button type="link" onClick={filterDataSource}>Поиск</Button>
-			<Button type="default" onClick={clearFilters}>Сбросить фильтры</Button>
+			<Button type="link" onClick={filterDataSource} aria-label="search">Поиск</Button>
+			<Button type="default" onClick={clearFilters} aria-label="clear filters">Сбросить фильтры</Button>
 		</Space>
 	);
 }
