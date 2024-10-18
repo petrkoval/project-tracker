@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {default as AntSider} from "antd/es/layout/Sider";
 import {Link, useLocation} from "react-router-dom";
 import {Menu, MenuProps, theme} from "antd";
@@ -10,6 +9,7 @@ import {LuMessagesSquare} from "react-icons/lu";
 import {selectThemeName, SwitchThemeButton} from "@features/switch-theme";
 import {useSelector} from "react-redux";
 import {Links} from "@shared/enums";
+import {useSiderCollapse} from "@widgets/sider";
 
 
 const items: MenuProps['items'] = [
@@ -49,7 +49,7 @@ const items: MenuProps['items'] = [
 ];
 
 export function Sider() {
-	const [siderCollapsed, setSiderCollapsed] = useState(false);
+	const [siderCollapsed, setSiderCollapsed] = useSiderCollapse();
 	const currentTheme = useSelector(selectThemeName);
 	const location = useLocation();
 
