@@ -1,7 +1,11 @@
+@import 'scrollbar';
+
 html {
 	box-sizing: border-box;
 
 	font-size: 14px;
+
+	@include scrollbar;
 }
 
 *, *::before, *::after {
