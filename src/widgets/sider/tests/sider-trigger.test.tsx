@@ -2,6 +2,10 @@ import {renderWithStoreRouter} from "@shared/tests";
 import {Sider} from "@widgets/sider";
 import {userEvent} from "@testing-library/user-event";
 
+afterEach(() => {
+	localStorage.clear();
+})
+
 describe('SiderTrigger', () => {
 	test('renders with left icon', () => {
 		const {getByRole} = renderWithStoreRouter(<Sider/>);
