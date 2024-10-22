@@ -1,6 +1,7 @@
 import {renderWithStoreRouter} from "@shared/tests";
 import {Sider} from "@widgets/sider";
 import {userEvent} from "@testing-library/user-event";
+import {expect} from "vitest";
 
 afterEach(() => {
 	localStorage.clear();
@@ -30,5 +31,30 @@ describe('SiderTrigger', () => {
 		await userEvent.click(trigger);
 
 		expect(sider.getByRole('complementary')).toHaveStyle({width: '80px'});
+	});
+
+	describe('local storage', () => {
+		test('false by default', () => {
+			renderWithStoreRouter(<Sider/>);
+
+			expect(localStorage.getItem('siderCollapsed')).toBe(JSON.stringify(false));
+		});
+
+		test('true after first toggle', async () => {
+			const {container} = renderWithStoreRouter(<Sider/>);
+			const trigger = container.getElementsByClassName('ant-layout-sider-trigger')[0];
+			await userEvent.click(trigger);
+
+			expect(localStorage.getItem('siderCollapsed')).toBe(JSON.stringify(true));
+		});
+
+		test('false after two toggles', async () => {
+			const {container} = renderWithStoreRouter(<Sider/>);
+			const trigger = container.getElementsByClassName('ant-layout-sider-trigger')[0];
+			await userEvent.click(trigger);
+			await userEvent.click(trigger);
+
+			expect(localStorage.getItem('siderCollapsed')).toBe(JSON.stringify(false));
+		});
 	});
 });

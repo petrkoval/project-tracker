@@ -3,6 +3,10 @@ import {expect} from "vitest";
 import {renderWithStoreProvider} from "@shared/tests";
 import {setupStore} from "@app/store";
 
+afterEach(() => {
+	localStorage.clear();
+});
+
 describe("SwitchThemeButton", () => {
 	test('renders dark mode icon in dark mode', () => {
 		const {getByLabelText} = renderWithStoreProvider(<SwitchThemeButton/>);
@@ -34,5 +38,28 @@ describe("SwitchThemeButton", () => {
 		expect(newState).toHaveProperty('themeName', ThemeNames.light);
 		expect(newState.token).toHaveProperty('colorPrimary', '#f01879');
 		expect(newState.components?.Layout).toHaveProperty('lightSiderBg', '#F8F9FA');
+	});
+
+	describe('local storage', () => {
+		test('null by default', () => {
+			renderWithStoreProvider(<SwitchThemeButton/>);
+
+			expect(localStorage.getItem('theme')).toBe(null);
+		});
+
+		test('light after first toggle', () => {
+			renderWithStoreProvider(<SwitchThemeButton/>);
+			themeReducer(undefined, toggleTheme());
+
+			expect(localStorage.getItem('theme')).toBe(ThemeNames.light);
+		});
+
+		test('dark after two toggles', () => {
+			renderWithStoreProvider(<SwitchThemeButton/>);
+			themeReducer(undefined, toggleTheme());
+			themeReducer(undefined, toggleTheme());
+
+			expect(localStorage.getItem('theme')).toBe(ThemeNames.dark);
+		});
 	});
 });
