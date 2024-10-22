@@ -13,7 +13,7 @@ export function Layout() {
 			<Header/>
 			<AntLayout>
 				<Sider/>
-				<Content style={{overflow: 'auto'}}>
+				<Content style={{overflow: 'auto', scrollbarGutter: "stable"}}>
 					<Outlet/>
 				</Content>
 			</AntLayout>
