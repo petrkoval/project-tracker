@@ -3,6 +3,7 @@ import {Outlet} from "react-router-dom";
 import {Sider} from "@widgets/sider";
 import {Header} from "@widgets/header";
 import {Footer} from "@widgets/footer";
+import {motion} from 'framer-motion';
 
 const {Content} = AntLayout;
 
@@ -14,7 +15,14 @@ export function Layout() {
 			<AntLayout>
 				<Sider/>
 				<Content style={{overflow: 'auto', scrollbarGutter: "stable"}}>
-					<Outlet/>
+					<motion.div
+						initial={{opacity: 0}}
+						animate={{opacity: 1}}
+						exit={{opacity: 0}}
+						transition={{duration: 0.2}}
+					>
+						<Outlet/>
+					</motion.div>
 				</Content>
 			</AntLayout>
 			<Footer/>
