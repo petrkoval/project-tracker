@@ -4,3 +4,26 @@
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
+
+.dialogue-message {
+	display: flex;
+	align-items: flex-end;
+
+	max-width: 60%;
+	padding: .5rem;
+
+	&__self {
+		align-self: flex-end;
+		justify-content: flex-end;
+	}
+
+	&__their {
+		align-self: flex-start;
+		border-radius: 2px 1rem 1rem;
+		background: rgba(0, 0, 0, .05);
+	}
+
+	time {
+		opacity: .5;
+	}
+}

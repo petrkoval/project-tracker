@@ -43,8 +43,8 @@ const data = [
 export function MessagesPage() {
 	return (
 		<PageWrapper noScroll crumbs={[{title: "Сообщения"}]}>
-			<Row style={{height: '100%'}}>
-				<Col flex="300px" style={{overflow: "auto", height: "95%", paddingRight: ".5rem"}}>
+			<Row style={{height: '100%'}} wrap={false}>
+				<Col flex="300px" style={{overflow: "auto", height: "95%", paddingRight: ".5rem", scrollbarGutter: "stable"}}>
 					<List itemLayout="horizontal"
 						  dataSource={data}
 						  renderItem={(item, index) => (
@@ -62,7 +62,7 @@ export function MessagesPage() {
 						  )}
 					/>
 				</Col>
-				<Col flex="auto">
+				<Col flex="auto" style={{overflow: "auto", height: "95%", scrollbarGutter: "stable"}}>
 					<Dialogue/>
 				</Col>
 			</Row>
