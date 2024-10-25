@@ -13,7 +13,7 @@ export function Routes() {
 		<AnimatePresence mode="wait">
 			<BrowserRoutes location={location} key={location.pathname}>
 				<Route path="/" element={<Layout/>}>
-					<Route index element={<Navigate to="/projects" replace/>}/>
+					<Route index element={<Navigate to={Links.PROJECTS} replace/>}/>
 					<Route path={Links.PROJECTS} element={<ProjectsPage/>}/>
 					<Route path={Links.MESSAGES} element={<MessagesPage/>}/>
 				</Route>

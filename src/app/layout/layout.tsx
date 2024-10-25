@@ -14,12 +14,13 @@ export function Layout() {
 			<Header/>
 			<AntLayout>
 				<Sider/>
-				<Content style={{overflow: 'auto', scrollbarGutter: "stable"}}>
+				<Content>
 					<motion.div
 						initial={{opacity: 0}}
 						animate={{opacity: 1}}
 						exit={{opacity: 0}}
 						transition={{duration: 0.2}}
+						style={{overflow: 'hidden', height: "100%"}}
 					>
 						<Outlet/>
 					</motion.div>

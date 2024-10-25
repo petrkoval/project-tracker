@@ -10,9 +10,10 @@ import "../style/page-wrapper.scss";
 interface Props {
 	children?: ReactNode;
 	crumbs?: Partial<BreadcrumbItemType & BreadcrumbSeparatorType>[];
+	noScroll?: boolean;
 }
 
-export function PageWrapper({children, crumbs = []}: Props) {
+export function PageWrapper({children, crumbs = [], noScroll = false}: Props) {
 	const items = [
 		{
 			title: <Link to={Links.HOME}><FaHome aria-label="home icon"/></Link>
@@ -21,10 +22,10 @@ export function PageWrapper({children, crumbs = []}: Props) {
 	];
 
 	return (
-		<div className="page">
+		<div className="page" style={{overflow: noScroll ? "hidden" : "scroll", height: "100%"}}>
 			<Breadcrumb items={items} separator=">"/>
 
-			<div className="page__inner">
+			<div className="page__inner" style={{height: '100%'}}>
 				{children}
 			</div>
 		</div>
